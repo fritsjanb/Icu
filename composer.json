@@ -23,5 +23,8 @@
     "autoload": {
         "psr-0": { "Symfony\\Component\\Icu\\": "" }
     },
-    "target-dir": "Symfony/Component/Icu"
+    "target-dir": "Symfony/Component/Icu",
+    "replace": {
+        "symfony/icu": "1.*"
+    }
 }
