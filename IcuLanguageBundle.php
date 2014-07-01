@@ -34,6 +34,10 @@ class IcuLanguageBundle extends LanguageBundle
      */
     public function getLocales()
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return array('en');
+        }
+
         return $this->readEntry('misc', array('Locales'));
     }
 
@@ -42,6 +46,10 @@ class IcuLanguageBundle extends LanguageBundle
      */
     public function getLanguageName($lang, $region = null, $locale = null)
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return parent::getLanguageName($lang, $region, $locale);
+        }
+
         if ('mul' === $lang) {
             return null;
         }
@@ -54,6 +62,10 @@ class IcuLanguageBundle extends LanguageBundle
      */
     public function getLanguageNames($locale = null)
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return parent::getLanguageNames($locale);
+        }
+
         if (null === $locale) {
             $locale = \Locale::getDefault();
         }
@@ -74,6 +86,10 @@ class IcuLanguageBundle extends LanguageBundle
      */
     public function getScriptNames($locale = null)
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return parent::getScriptNames($locale);
+        }
+
         if (null === $locale) {
             $locale = \Locale::getDefault();
         }

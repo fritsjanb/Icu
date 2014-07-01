@@ -34,6 +34,10 @@ class IcuLocaleBundle extends LocaleBundle
      */
     public function getLocales()
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return array('en');
+        }
+
         return $this->readEntry('misc', array('Locales'));
     }
 
@@ -42,6 +46,10 @@ class IcuLocaleBundle extends LocaleBundle
      */
     public function getLocaleNames($locale = null)
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return parent::getLocaleNames($locale);
+        }
+
         if (null === $locale) {
             $locale = \Locale::getDefault();
         }

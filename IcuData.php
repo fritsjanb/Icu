@@ -12,6 +12,7 @@
 namespace Symfony\Component\Icu;
 
 use Symfony\Component\Intl\ResourceBundle\Reader\BinaryBundleReader;
+use Symfony\Component\Intl\ResourceBundle\Reader\PhpBundleReader;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
@@ -36,6 +37,10 @@ class IcuData
      */
     public static function isStubbed()
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return true;
+        }
+
         return false;
     }
 
@@ -56,6 +61,10 @@ class IcuData
      */
     public static function getBundleReader()
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return new PhpBundleReader();
+        }
+
         return new BinaryBundleReader();
     }
 

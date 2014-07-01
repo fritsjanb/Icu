@@ -42,6 +42,10 @@ class IcuCurrencyBundle extends CurrencyBundle
      */
     public function getLocales()
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return array('en');
+        }
+
         return $this->readEntry('misc', array('Locales'));
     }
 
@@ -50,6 +54,10 @@ class IcuCurrencyBundle extends CurrencyBundle
      */
     public function getCurrencyNames($locale = null)
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return parent::getCurrencyNames($locale);
+        }
+
         if (null === $locale) {
             $locale = \Locale::getDefault();
         }
@@ -67,6 +75,10 @@ class IcuCurrencyBundle extends CurrencyBundle
      */
     public function getFractionDigits($currency)
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return parent::getFractionDigits($currency);
+        }
+
         $entry = $this->readEntry('misc', array('CurrencyMeta'));
 
         if (!isset($entry[$currency][self::INDEX_FRACTION_DIGITS])) {
@@ -85,6 +97,10 @@ class IcuCurrencyBundle extends CurrencyBundle
      */
     public function getRoundingIncrement($currency)
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return parent::getRoundingIncrement($currency);
+        }
+
         $entry = $this->readEntry('misc', array('CurrencyMeta'));
 
         if (!isset($entry[$currency][self::INDEX_ROUNDING_INCREMENT])) {

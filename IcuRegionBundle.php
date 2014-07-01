@@ -34,6 +34,10 @@ class IcuRegionBundle extends RegionBundle
      */
     public function getLocales()
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return array('en');
+        }
+
         return $this->readEntry('misc', array('Locales'));
     }
 
@@ -42,6 +46,10 @@ class IcuRegionBundle extends RegionBundle
      */
     public function getCountryName($country, $locale = null)
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return parent::getCountryName($country, $locale);
+        }
+
         if ('ZZ' === $country || ctype_digit((string) $country)) {
             return null;
         }
@@ -54,6 +62,10 @@ class IcuRegionBundle extends RegionBundle
      */
     public function getCountryNames($locale = null)
     {
+        if (IcuVersion::getVersion() < '4.0') {
+            return parent::getCountryNames($locale);
+        }
+
         if (null === $locale) {
             $locale = \Locale::getDefault();
         }
