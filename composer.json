@@ -1,5 +1,5 @@
 {
-    "name": "symfony/icu",
+    "name": "fritsjanb/icu",
     "type": "library",
     "description": "Contains an excerpt of the ICU data and classes to load it.",
     "keywords": ["icu", "intl"],
@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "lib-ICU": ">=4.4",
+        "lib-ICU": ">=3.8",
         "symfony/intl": "~2.3"
     },
     "autoload": {
