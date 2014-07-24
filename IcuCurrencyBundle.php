@@ -11,8 +11,10 @@
 
 namespace Symfony\Component\Icu;
 
+use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\ResourceBundle\CurrencyBundle;
 use Symfony\Component\Intl\ResourceBundle\Reader\StructuredBundleReaderInterface;
+use Symfony\Component\Intl\Util\IcuVersion;
 
 /**
  * An ICU-specific implementation of {@link \Symfony\Component\Intl\ResourceBundle\CurrencyBundleInterface}.
@@ -32,9 +34,13 @@ class IcuCurrencyBundle extends CurrencyBundle
 
     const INDEX_ROUNDING_INCREMENT = 1;
 
+    private $version;
+
     public function __construct(StructuredBundleReaderInterface $reader)
     {
         parent::__construct(realpath(IcuData::getResourceDirectory() . '/curr'), $reader);
+
+        $this->version = Intl::getIcuVersion();
     }
 
     /**
@@ -42,7 +48,7 @@ class IcuCurrencyBundle extends CurrencyBundle
      */
     public function getLocales()
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare($this->version, '4.0', '<', $precision = 1)) {
             return array('en');
         }
 
@@ -54,7 +60,7 @@ class IcuCurrencyBundle extends CurrencyBundle
      */
     public function getCurrencyNames($locale = null)
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare($this->version, '4.0', '<', $precision = 1)) {
             return parent::getCurrencyNames($locale);
         }
 
@@ -75,7 +81,7 @@ class IcuCurrencyBundle extends CurrencyBundle
      */
     public function getFractionDigits($currency)
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare($this->version, '4.0', '<', $precision = 1)) {
             return parent::getFractionDigits($currency);
         }
 
@@ -97,7 +103,7 @@ class IcuCurrencyBundle extends CurrencyBundle
      */
     public function getRoundingIncrement($currency)
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare($this->version, '4.0', '<', $precision = 1)) {
             return parent::getRoundingIncrement($currency);
         }
 

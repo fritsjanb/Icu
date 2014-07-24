@@ -11,8 +11,10 @@
 
 namespace Symfony\Component\Icu;
 
+use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\ResourceBundle\Reader\BinaryBundleReader;
 use Symfony\Component\Intl\ResourceBundle\Reader\PhpBundleReader;
+use Symfony\Component\Intl\Util\IcuVersion;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
@@ -37,7 +39,7 @@ class IcuData
      */
     public static function isStubbed()
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare(Intl::getIcuVersion(), '4.0', '<', $precision = 1)) {
             return true;
         }
 
@@ -51,10 +53,10 @@ class IcuData
      */
     public static function getResourceDirectory()
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare(Intl::getIcuVersion(), '4.0', '<', $precision = 1)) {
             return realpath(__DIR__ . '/Resources/1.0/data');
         }
-        if (IcuVersion::getVersion() < '4.4') {
+        if (IcuVersion::compare(Intl::getIcuVersion(), '4.4', '<', $precision = 1)) {
             return realpath(__DIR__ . '/Resources/1.1/data');
         }
 
@@ -68,7 +70,7 @@ class IcuData
      */
     public static function getBundleReader()
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare(Intl::getIcuVersion(), '4.0', '<', $precision = 1)) {
             return new PhpBundleReader();
         }
 

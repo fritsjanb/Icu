@@ -11,8 +11,10 @@
 
 namespace Symfony\Component\Icu;
 
+use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\ResourceBundle\LanguageBundle;
 use Symfony\Component\Intl\ResourceBundle\Reader\StructuredBundleReaderInterface;
+use Symfony\Component\Intl\Util\IcuVersion;
 
 /**
  * An ICU-specific implementation of {@link \Symfony\Component\Intl\ResourceBundle\LanguageBundleInterface}.
@@ -24,9 +26,13 @@ use Symfony\Component\Intl\ResourceBundle\Reader\StructuredBundleReaderInterface
  */
 class IcuLanguageBundle extends LanguageBundle
 {
+    private $version;
+
     public function __construct(StructuredBundleReaderInterface $reader)
     {
         parent::__construct(realpath(IcuData::getResourceDirectory() . '/lang'), $reader);
+
+        $this->version = Intl::getIcuVersion();
     }
 
     /**
@@ -34,7 +40,7 @@ class IcuLanguageBundle extends LanguageBundle
      */
     public function getLocales()
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare($this->version, '4.0', '<', $precision = 1)) {
             return array('en');
         }
 
@@ -46,7 +52,7 @@ class IcuLanguageBundle extends LanguageBundle
      */
     public function getLanguageName($lang, $region = null, $locale = null)
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare($this->version, '4.0', '<', $precision = 1)) {
             return parent::getLanguageName($lang, $region, $locale);
         }
 
@@ -62,7 +68,7 @@ class IcuLanguageBundle extends LanguageBundle
      */
     public function getLanguageNames($locale = null)
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare($this->version, '4.0', '<', $precision = 1)) {
             return parent::getLanguageNames($locale);
         }
 
@@ -86,7 +92,7 @@ class IcuLanguageBundle extends LanguageBundle
      */
     public function getScriptNames($locale = null)
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare($this->version, '4.0', '<', $precision = 1)) {
             return parent::getScriptNames($locale);
         }
 

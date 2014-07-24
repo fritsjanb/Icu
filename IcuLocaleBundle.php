@@ -11,8 +11,10 @@
 
 namespace Symfony\Component\Icu;
 
+use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\ResourceBundle\LocaleBundle;
 use Symfony\Component\Intl\ResourceBundle\Reader\StructuredBundleReaderInterface;
+use Symfony\Component\Intl\Util\IcuVersion;
 
 /**
  * An ICU-specific implementation of {@link \Symfony\Component\Intl\ResourceBundle\LocaleBundleInterface}.
@@ -24,9 +26,13 @@ use Symfony\Component\Intl\ResourceBundle\Reader\StructuredBundleReaderInterface
  */
 class IcuLocaleBundle extends LocaleBundle
 {
+    private $version;
+
     public function __construct(StructuredBundleReaderInterface $reader)
     {
         parent::__construct(realpath(IcuData::getResourceDirectory() . '/locales'), $reader);
+
+        $this->version = Intl::getIcuVersion();
     }
 
     /**
@@ -34,7 +40,7 @@ class IcuLocaleBundle extends LocaleBundle
      */
     public function getLocales()
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare($this->version, '4.0', '<', $precision = 1)) {
             return array('en');
         }
 
@@ -46,7 +52,7 @@ class IcuLocaleBundle extends LocaleBundle
      */
     public function getLocaleNames($locale = null)
     {
-        if (IcuVersion::getVersion() < '4.0') {
+        if (IcuVersion::compare($this->version, '4.0', '<', $precision = 1)) {
             return parent::getLocaleNames($locale);
         }
 
