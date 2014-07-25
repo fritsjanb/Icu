@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Icu\Tests;
+namespace Symfony\Component\Icu\Tests\V2;
 
 use Symfony\Component\Icu\IcuData;
 use Symfony\Component\Icu\IcuRegionBundle;

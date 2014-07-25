@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Icu\Tests;
+namespace Symfony\Component\Icu\Tests\V1;
 
 use Symfony\Component\Icu\IcuCurrencyBundle;
 use Symfony\Component\Icu\IcuLanguageBundle;
@@ -31,7 +31,6 @@ class IcuIntegrationTest extends IcuTestCase
 
         $this->assertSame('€', $bundle->getCurrencySymbol('EUR'));
         $this->assertContains('en_GB', $bundle->getLocales());
-        $this->assertContains('mo', $bundle->getLocales());
         $this->assertContains('ro_MD', $bundle->getLocales());
         $this->assertNotContains('root', $bundle->getLocales());
         $this->assertNotContains('supplementalData', $bundle->getLocales());
@@ -45,7 +44,6 @@ class IcuIntegrationTest extends IcuTestCase
 
         $this->assertSame('German', $bundle->getLanguageName('de', null, 'en'));
         $this->assertContains('en_GB', $bundle->getLocales());
-        $this->assertContains('mo', $bundle->getLocales());
         $this->assertContains('ro_MD', $bundle->getLocales());
         $this->assertNotContains('root', $bundle->getLocales());
         $this->assertNotContains('supplementalData', $bundle->getLocales());
@@ -59,7 +57,6 @@ class IcuIntegrationTest extends IcuTestCase
 
         $this->assertSame('azéri', $bundle->getLocaleName('az', 'fr'));
         $this->assertContains('en_GB', $bundle->getLocales());
-        $this->assertContains('mo', $bundle->getLocales());
         $this->assertContains('ro_MD', $bundle->getLocales());
         $this->assertNotContains('root', $bundle->getLocales());
         $this->assertNotContains('supplementalData', $bundle->getLocales());
@@ -73,7 +70,6 @@ class IcuIntegrationTest extends IcuTestCase
 
         $this->assertSame('Vereinigtes Königreich', $bundle->getCountryName('GB', 'de'));
         $this->assertContains('en_GB', $bundle->getLocales());
-        $this->assertContains('mo', $bundle->getLocales());
         $this->assertContains('ro_MD', $bundle->getLocales());
         $this->assertNotContains('root', $bundle->getLocales());
         $this->assertNotContains('supplementalData', $bundle->getLocales());

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Icu\Tests;
+namespace Symfony\Component\Icu\Tests\V1;
 
 use Symfony\Component\Icu\IcuCurrencyBundle;
 use Symfony\Component\Icu\IcuData;

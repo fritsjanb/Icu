@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Icu\Tests;
+namespace Symfony\Component\Icu\Tests\V1;
 
 use Symfony\Component\Icu\IcuData;
 use Symfony\Component\Intl\Intl;
@@ -29,10 +29,10 @@ abstract class IcuTestCase extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('The intl extension is not available.');
         }
 
-        if (IcuVersion::compare(Intl::getIcuVersion(), '4.4', '<', $precision = 1)) {
-            $this->markTestSkipped('Please change your ICU version to 4.4 or higher');
+        if (IcuVersion::compare(Intl::getIcuVersion(), '4.0', '<', $precision = 1)) {
+            $this->markTestSkipped('This test requires ICU version >= 4.0');
         }
-        
+
         \Locale::setDefault('en');
     }
 }
